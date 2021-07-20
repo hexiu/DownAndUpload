@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:20:08
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-19 18:50:21
+ * @LastEditTime: 2021-07-20 14:06:23
  * @FilePath: /test/gin/s.go
  */
 package main
@@ -14,11 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type RunStatus struct {
-	Status string // 运行状态
-	Usage  string // 使用说明
-}
-
 var Domain = "http://0.0.0.0:8081"
 
 func main() {
@@ -26,15 +21,15 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, &RunStatus{
-			Status: "服务运行中",
-			Usage:  "下载客户端： \nwin客户端 http://" + Domain + "/download/client.exe\nLinux客户端 http://" + Domain + "/download/client.linux\nMac客户端 http://" + Domain + "/download/client.mac\n客户端的使用方式：./client* -h ",
+		c.JSON(http.StatusOK, gin.H{
+			"Status": "服务运行中",
+			"Usage":  "下载客户端： \nwin客户端 http://" + Domain + "/download/client.exe\nLinux客户端 http://" + Domain + "/download/client.linux\nMac客户端 http://" + Domain + "/download/client.mac\n客户端的使用方式：./client* -h ",
 		})
 	})
 	r.Static("/download", "./upload")
 	r.POST("/up", s)
 
-	r.Run("0.0.0.0:8081")
+	r.Run(Domain)
 	return
 }
 
