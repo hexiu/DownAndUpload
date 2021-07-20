@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:20:08
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-20 14:06:23
+ * @LastEditTime: 2021-07-20 16:42:03
  * @FilePath: /test/gin/s.go
  */
 package main
@@ -15,6 +15,7 @@ import (
 )
 
 var Domain = "http://0.0.0.0:8081"
+var Host = "0.0.0.0:8081"
 
 func main() {
 
@@ -29,7 +30,7 @@ func main() {
 	r.Static("/download", "./upload")
 	r.POST("/up", s)
 
-	r.Run(Domain)
+	r.Run(Host)
 	return
 }
 

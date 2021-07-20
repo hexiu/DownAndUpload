@@ -6,3 +6,5 @@
 
 
 ### 运行方式
+#### dockerfile  
+`sudo docker build -t downandupload:v0.0.1 .`
