@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:43:55
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-19 18:29:36
+ * @LastEditTime: 2021-07-20 15:11:56
  * @FilePath: /test/gin/c.go
  */
 package main
@@ -26,7 +26,7 @@ func main() {
 	f, err := os.Open(*file)
 	if err != nil {
 		panic(err)
-		return
+
 	}
 	defer f.Close()
 	body := &bytes.Buffer{}
@@ -37,7 +37,7 @@ func main() {
 	part, err := w.CreateFormFile("file", "s.go")
 	if err != nil {
 		panic(err)
-		return
+
 	}
 
 	io.Copy(part, f)
@@ -47,13 +47,13 @@ func main() {
 	resp, err := c.Post("http://0.0.0.0:8081/up", ct, body)
 	if err != nil {
 		panic(err)
-		return
+
 	}
 	fmt.Printf("resp: %+v\n", resp)
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
-		return
+
 	}
 	fmt.Printf("resp body: %+v\n", string(b))
 

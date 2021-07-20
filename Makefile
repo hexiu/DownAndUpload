@@ -4,27 +4,47 @@ BINARYS="server"
 BINARYC="client"
 
 
-all: gotool build
+all: clean gotool build
 
 builds:
+	@if [ ! -d "upload" ] ; then mkdir "upload" ; fi
 	CGO_ENABLED=0 GOOS=`go env GOOS` GOARCH=amd64 go build -o ${BINARYS} ./s.go
 
-buildc:
-	CGO_ENABLED=0 GOOS=`go env GOOS` GOARCH=amd64 go build -o ${BINARYC} ./c.go
+buildc: buildcw buildcm buildcl
 
-build: buildc builds
 
+buildcw: 
+	@if [ ! -d "upload" ] ; then mkdir "upload" ; fi
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ${BINARYC}.exe ./c.go
+
+buildcl: 
+	@if [ ! -d "upload" ] ; then mkdir "upload" ; fi
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${BINARYC}.linux ./c.go
+
+buildcm: 
+	@if [ ! -d "upload" ] ; then mkdir "upload" ; fi
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${BINARYC}.mac ./c.go
+
+build: buildc builds mvworkdir
+
+mvworkdir:
+	mv client.exe   client.linux client.mac ./upload
 
 run:
 	@go run ./s.go
 
 gotool:
 	go fmt ./
-	go vet ./
+	go vet ./c.go
+	go vet ./s.go
 
 clean:
 	@if [ -f ${BINARYS} ] ; then rm ${BINARYS} ; fi
-	@if [ -f ${BINARYC} ] ; then rm ${BINARYC} ; fi
+	@if [ -f ${BINARYC}.exe ] ; then rm ${BINARYC}.exe  ; fi
+	@if [ -f ${BINARYC}.mac ] ; then rm ${BINARYC}.mac ; fi
+	@if [ -f ${BINARYC}.linux ] ; then rm ${BINARYC}.linux ; fi
+	@if [ -d "upload" ] ; then rm -r "upload" ; fi
+	
 
 help:
 	@echo "make - 格式化 Go 代码, 并编译生成二进制文件"
