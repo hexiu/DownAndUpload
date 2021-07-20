@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:43:55
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-20 15:11:56
+ * @LastEditTime: 2021-07-20 16:58:32
  * @FilePath: /test/gin/c.go
  */
 package main
@@ -18,6 +18,7 @@ import (
 )
 
 var file = flag.String("f", "", "upload filepath+filename")
+var domain = flag.String("d", "up.jaxiu.cn", "upload host")
 
 func main() {
 	flag.Parse()
@@ -44,7 +45,7 @@ func main() {
 	ct := w.FormDataContentType()
 	w.Close()
 
-	resp, err := c.Post("http://0.0.0.0:8081/up", ct, body)
+	resp, err := c.Post("http://"+*domain+"/up", ct, body)
 	if err != nil {
 		panic(err)
 

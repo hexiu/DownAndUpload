@@ -31,6 +31,7 @@ mvworkdir:
 	mv client.exe   client.linux client.mac ./upload
 
 run:
+	@if [ ! -d "upload" ] ; then mkdir "upload" ; fi
 	@go run ./s.go
 
 gotool:
