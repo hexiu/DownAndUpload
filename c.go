@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:43:55
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-20 16:58:32
+ * @LastEditTime: 2021-07-22 15:03:47
  * @FilePath: /test/gin/c.go
  */
 package main
@@ -35,7 +35,7 @@ func main() {
 	w := multipart.NewWriter(body)
 	defer w.Close()
 
-	part, err := w.CreateFormFile("file", "s.go")
+	part, err := w.CreateFormFile("file", *file)
 	if err != nil {
 		panic(err)
 
