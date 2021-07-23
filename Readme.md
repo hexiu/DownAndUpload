@@ -8,6 +8,7 @@
 ### 运行方式
 #### dockerfile  
 `sudo docker build -t downandupload:v0.0.1 .`
+`sudo docker run  -dti --name dau -p 8081:8081 downandupload:v0.0.1`
 
 ### 使用手册
 1. 下载客户端： 

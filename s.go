@@ -1,12 +1,13 @@
 /*
  * @Date: 2021-07-16 17:20:08
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-20 16:42:03
+ * @LastEditTime: 2021-07-23 11:13:28
  * @FilePath: /test/gin/s.go
  */
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"path"
@@ -14,23 +15,32 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var Domain = "http://0.0.0.0:8081"
-var Host = "0.0.0.0:8081"
+var Domain = flag.String("d",
+	"http://up.jaxiu.cn",
+	"-d your service domain.",
+)
+
+var Host = flag.String(
+	"h",
+	"0.0.0.0:8081",
+	"-h your hosts ip and port",
+)
 
 func main() {
 
+	flag.Parse()
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"Status": "服务运行中",
-			"Usage":  "下载客户端： \nwin客户端 http://" + Domain + "/download/client.exe\nLinux客户端 http://" + Domain + "/download/client.linux\nMac客户端 http://" + Domain + "/download/client.mac\n客户端的使用方式：./client* -h ",
+			"Usage":  "下载客户端： \nwin客户端 http://" + *Domain + "/download/client.exe\nLinux客户端 http://" + *Domain + "/download/client.linux\nMac客户端 http://" + *Domain + "/download/client.mac\n客户端的使用方式：./client* -h ",
 		})
 	})
 	r.Static("/download", "./upload")
 	r.POST("/up", s)
 
-	r.Run(Host)
+	r.Run(*Host)
 	return
 }
 
@@ -47,6 +57,6 @@ func s(c *gin.Context) {
 	//保存成功返回正确的Json数据
 	c.JSON(http.StatusOK, gin.H{
 		"message": "OK",
-		"downurl": "http://0.0.0.0:8081/download/" + f.Filename,
+		"downurl": *Domain + "/download/" + f.Filename,
 	})
 }
