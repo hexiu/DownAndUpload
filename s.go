@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:20:08
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-23 11:13:28
+ * @LastEditTime: 2021-07-23 11:41:42
  * @FilePath: /test/gin/s.go
  */
 package main
@@ -16,7 +16,7 @@ import (
 )
 
 var Domain = flag.String("d",
-	"http://up.jaxiu.cn",
+	"up.jaxiu.cn",
 	"-d your service domain.",
 )
 
@@ -57,6 +57,6 @@ func s(c *gin.Context) {
 	//保存成功返回正确的Json数据
 	c.JSON(http.StatusOK, gin.H{
 		"message": "OK",
-		"downurl": *Domain + "/download/" + f.Filename,
+		"downurl": "http://" + *Domain + "/download/" + f.Filename,
 	})
 }
