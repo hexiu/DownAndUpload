@@ -7,6 +7,7 @@ RUN apk --no-cache --no-progress add --virtual \
   linux-pam-dev
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN cd / &&wget https://github.com/hexiu/DownAndUpload/archive/refs/heads/main.zip && unzip main.zip && cd DownAndUpload-main && make build && chmod u+x /DownAndUpload-main/server 
+RUN echo -e "*/30\t*\t*\t*\t*\t /bin/sh /DownAndUpload-main/cleanfile.sh"
 WORKDIR /DownAndUpload-main/
 EXPOSE 8081
 CMD ["/DownAndUpload-main/server"]
