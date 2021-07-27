@@ -18,3 +18,4 @@
 
 2. 终端使用：  `./client -f /your/filepath ` [如果你是自建，`./client -f /your/filepath -d "your hosts"`]
 3. 其他地方文件下载，看上传返回信息。
+4. 下载速度不满意，接入七牛云cdn
