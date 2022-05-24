@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-07-16 17:20:08
  * @LastEditors: jaxiu
- * @LastEditTime: 2021-07-23 11:41:42
+ * @LastEditTime: 2021-08-11 10:31:53
  * @FilePath: /test/gin/s.go
  */
 package main
@@ -30,6 +30,7 @@ func main() {
 
 	flag.Parse()
 	r := gin.Default()
+	fmt.Println(gin.Version)
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
